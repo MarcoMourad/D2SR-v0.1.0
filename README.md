@@ -265,23 +265,23 @@ The proposal defines a **10-member team**:
 | Data | 1 | Datasets, evaluation, evidence-weighting analysis |
 | Backend | 3 | .NET API, orchestration, authentication, persistence |
 | Security | 1 | Secure upload, OWASP testing, regression QA |
-| DevOps | 1 | CI/CD, Docker, integration, deployment |
+| UIUX | 1 | User Interface & Experience |
 
 ## Roadmap
 
-### Phase 1 — Image Analysis
+### Phase 1 — Image Analysis (current)
 
 Full multi-signal analysis pipeline for still images.
 
-### Phase 2 — Video Authenticity
+### Phase 2 — Video Authenticity (comming soon)
 
 Extend the system to frame-level and temporal-consistency analysis.
 
-### Phase 3 — Other Digital Files
+### Phase 3 — Other Digital Files (comming soon)
 
 Extend signal analysis to documents and audio.
 
-### Phase 4 — Advanced Provenance
+### Phase 4 — Advanced Provenance 
 
 Deeper C2PA integration and signature verification.
 
