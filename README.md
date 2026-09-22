@@ -69,7 +69,68 @@ flowchart LR
 
 ---
 
-## 3. Role of AI
+## 3. Related Work & Project Differentiation
+
+This section compares D²SR conceptually with existing platforms, tools, and research addressing image authenticity — not to rank or attack them, but to clarify the gap D²SR aims to fill.
+
+### 3.1 Existing Solutions
+
+| Category | Main Focus | Evidence Provided | Limitation (in this context) |
+| --- | --- | --- | --- |
+| AI-generated image detection tools | Classify an image as AI-generated or not | A single probability/verdict | Single-signal; accuracy varies across unseen generators |
+| Image manipulation / forensic tools | Detect tampering (splicing, copy-move, etc.) | Forensic traces, sometimes a heatmap | Usually standalone; not combined with AI-generation or provenance checks |
+| Metadata / EXIF analysis tools | Inspect embedded file metadata | Camera info, timestamps, software tags | Metadata is frequently missing or stripped, limiting coverage |
+| C2PA / Content Credentials solutions | Verify cryptographically signed provenance | Presence/absence of signed credentials | Only useful when credentials were embedded at capture/export; adoption is still limited |
+| Reverse image search / similarity systems | Find similar or duplicate images online | Related sources, near-duplicates | Identifies *matches*, not authenticity of the specific file |
+| Academic AI-generated image detection research | Advance detection accuracy on benchmark datasets | Model performance metrics | Often evaluated in isolation, not integrated into an end-to-end user-facing report |
+
+Each category above addresses one piece of the authenticity question. D²SR's premise is that combining them — rather than relying on any one in isolation — produces a more resilient and more explainable assessment.
+
+### 3.2 What Makes D²SR Different
+
+- **Multi-signal analysis:** No dependency on a single AI detector — D²SR combines AI detection, manipulation detection, metadata, image integrity, provenance/C2PA, and similarity/fingerprinting signals.
+- **Evidence-based Trust Score:** Instead of a binary "Real" or "AI Generated" label, the system aggregates multiple evidence sources into an explainable Trust Score and Confidence Score.
+- **Explainable authenticity report:** Users see the evidence behind the result — warnings, suspicious regions/heatmaps, metadata findings, provenance status, and other available signals.
+- **Resilience to metadata loss:** The system does not depend on metadata alone, since screenshots, compression, editing, and social-media processing frequently remove or alter it.
+- **Technology integration:** The project combines Angular, ASP.NET Core, Python AI services, computer vision, digital forensics, provenance standards such as C2PA, databases, Docker, and security controls into one platform.
+- **Academic and non-profit orientation:** D²SR is an academic project, designed to provide its core authenticity-analysis service free of charge rather than as a profit-oriented commercial offering.
+- **Unified platform:** Instead of requiring separate tools for AI detection, metadata inspection, forensic analysis, provenance, and similarity checking, D²SR brings these signals into one workflow and one report.
+
+### 3.3 D²SR Technical Fingerprint
+
+D²SR's identity is defined by the combination of techniques it integrates, rather than any single novel algorithm:
+
+```text
+Multi-Signal Analysis + AI Detection + Image Forensics + Provenance/C2PA
++ Metadata + Integrity + Similarity/Fingerprinting
++ Evidence-Based Trust Scoring + Explainable Reporting
+```
+
+The novelty lies in **integrating complementary techniques into one explainable authenticity assessment pipeline**, rather than inventing each individual technique from scratch.
+
+### 3.4 Comparison
+
+| Capability | Typical Single-Purpose Tools | D²SR |
+| --- | --- | --- |
+| AI-generated image detection | ✓ / Limited | ✓ |
+| Manipulation detection | Limited / Tool-dependent | ✓ |
+| Metadata analysis | Tool-dependent | ✓ |
+| Image integrity analysis | Limited | ✓ |
+| C2PA / provenance | Tool-dependent | ✓ |
+| Similarity / fingerprinting | Tool-dependent | ✓ |
+| Multi-signal analysis | Usually limited | ✓ |
+| Evidence-based Trust Score | Usually limited | ✓ |
+| Explainable authenticity report | Varies | ✓ |
+| Free academic service | Varies | ✓ |
+| Unified workflow | Usually fragmented | ✓ |
+
+This table reflects design scope and differentiation, not a claim that D²SR objectively outperforms every existing solution.
+
+D²SR's contribution is the **integration, explainability, evidence aggregation, and accessibility** of multiple authenticity signals into a single academic platform.
+
+---
+
+## 4. Role of AI
 
 The AI team does not simply answer *"Real or Fake?"* — it analyzes visual content through two distinct tasks.
 
@@ -100,7 +161,7 @@ Responsibilities: tampered-image dataset preparation, preprocessing, model devel
 
 ---
 
-## 4. Other Analysis Components
+## 5. Other Analysis Components
 
 **Metadata** — EXIF, camera info, timestamps, software info. Missing metadata does **not** mean an image is fake.
 
@@ -116,7 +177,7 @@ Responsibilities: tampered-image dataset preparation, preprocessing, model devel
 
 ---
 
-## 5. Trust Engine
+## 6. Trust Engine
 
 The Trust Score is **not** simply `100 - AI Probability`.
 
@@ -148,7 +209,7 @@ Confidence: 91%
 
 ---
 
-## 6. Methodology
+## 7. Methodology
 
 ```mermaid
 flowchart LR
@@ -178,7 +239,7 @@ flowchart LR
 
 ---
 
-## 7. Datasets
+## 8. Datasets
 
 **Candidate datasets currently under evaluation** — no final selection has been made.
 
@@ -190,7 +251,7 @@ flowchart LR
 
 ---
 
-## 8. Technical Challenges & Mitigation
+## 9. Technical Challenges & Mitigation
 
 ### Challenge 1 — Metadata Loss
 
@@ -222,7 +283,7 @@ Some candidate datasets may reach hundreds of millions of images, creating stora
 
 ---
 
-## 9. Other Expected Challenges
+## 10. Other Expected Challenges
 
 | Risk | Mitigation |
 | --- | --- |
@@ -236,7 +297,7 @@ Some candidate datasets may reach hundreds of millions of images, creating stora
 
 ---
 
-## 10. Technologies
+## 11. Technologies
 
 | Area | Technologies |
 | --- | --- |
@@ -250,7 +311,7 @@ Some candidate datasets may reach hundreds of millions of images, creating stora
 
 ---
 
-## 11. System Architecture
+## 12. System Architecture
 
 ```mermaid
 flowchart TD
@@ -278,7 +339,7 @@ The analysis engines run as independent Python/FastAPI services, orchestrated by
 
 ---
 
-## 12. Team Tracks
+## 13. Team Tracks
 
 | Track | Members | Main Responsibility |
 | --- | --- | --- |
@@ -304,8 +365,8 @@ ASP.NET Core API, authentication/authorization, image upload handling, analysis 
 
 ### AI — 2
 
-- **AI Engineer 1:** AI-generated image detection (see Section 3).
-- **AI Engineer 2:** Manipulation detection + localization (see Section 3).
+- **AI Engineer 1:** AI-generated image detection (see Section 4).
+- **AI Engineer 2:** Manipulation detection + localization (see Section 4).
 
 ### Data Analyst — 1
 
@@ -317,7 +378,7 @@ Dataset research and comparison, data quality, label validation, dataset balanci
 
 ---
 
-## 13. Team Workflow
+## 14. Team Workflow
 
 ```mermaid
 flowchart TD
@@ -336,7 +397,7 @@ All tracks — AI, Backend, Frontend, Data, UI/UX, and Security/QA — collabora
 
 ---
 
-## 14. MVP Scope
+## 15. MVP Scope
 
 **MVP**
 
@@ -364,7 +425,7 @@ All tracks — AI, Backend, Frontend, Data, UI/UX, and Security/QA — collabora
 
 ---
 
-## 15. Expected Output
+## 16. Expected Output
 
 > **Illustrative Example — Not Actual Results**
 
@@ -391,7 +452,7 @@ Forensic Heatmap: [Visualization]
 
 ---
 
-## 16. Project Value
+## 17. Project Value
 
 D²SR aims to provide:
 
@@ -407,7 +468,7 @@ No claims of guaranteed or 100% accurate detection are made.
 
 ---
 
-## 17. Future Roadmap
+## 18. Future Roadmap
 
 ```mermaid
 flowchart LR
@@ -421,6 +482,6 @@ Only **Phase 1** is within the current graduation-project scope.
 
 ---
 
-## 18. Conclusion
+## 19. Conclusion
 
 D²SR treats image authenticity as a question of accumulated evidence rather than a single yes/no prediction. By combining AI detection, metadata analysis, forensic signals, integrity checks, fingerprinting, manipulation detection, and provenance verification into one explainable workflow, the system produces a transparent, evidence-backed authenticity report instead of an opaque verdict.
